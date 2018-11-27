@@ -161,15 +161,14 @@ def tetris(strip,  wait_ms = 10):
     total = 0
     last = BLACK
     color = BLUE
+    
     while total <= strip.numPixels():
         
         # Generate random size
         size = random.randint(3, 7)    
         
         # Choose random color
-        
         color = random.choice(COLORS)
-
         if color == last:
             color = GRAY
         else:
@@ -182,12 +181,7 @@ def tetris(strip,  wait_ms = 10):
             else:
                 strip.setPixelColor(i, color)
         strip.show()
-            #time.sleep(wait_ms/1000.0)
         
-        #for i in range(size+1, strip.numPixels()-total-1):
-        #    strip.setPixelColor(i, BLUE)
-        #strip.show()
-
         # Move shape down
         for j in range(strip.numPixels()-(total+size)):
             for i in reversed(range(1, strip.numPixels()-total)):
@@ -197,4 +191,4 @@ def tetris(strip,  wait_ms = 10):
         # Add size to total
         total = total + size
 
-        time.sleep(wait_ms/1000.0)
+        #time.sleep(wait_ms/1000.0)
