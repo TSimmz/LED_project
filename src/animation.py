@@ -83,7 +83,7 @@ def rainbowCycle(strip, wait_ms=50, iterations=50):
         strip.show()
         time.sleep(wait_ms/1000.0)
 
-def theaterChaseRainbow(strip, wait_ms=150):
+def theaterChaseRainbow(strip, wait_ms=50):
     """Rainbow movie theater light style chaser animation."""
     for j in range(256):
         for q in range(3):
@@ -138,7 +138,7 @@ def risingColor(strip):
         strip.setPixelColor(i, Color(i,0,i))
         strip.show()
 
-def randomPixel(strip, wait_ms=500):
+def randomPixel(strip, wait_ms=5):
     strip.setPixelColor(random.randint(0, strip.numPixels()), GREEN)
     strip.show()
     time.sleep(wait_ms/1000.0)
@@ -159,8 +159,6 @@ def bounce(strip, color, wait_ms=50):
 
 def tetris(strip,  wait_ms = 10):
     total = 0
-    last = BLACK
-    color = BLUE
     
     while total <= strip.numPixels():
         
@@ -168,12 +166,8 @@ def tetris(strip,  wait_ms = 10):
         size = random.randint(3, 7)    
         
         # Choose random color
-        color = random.choice(COLORS)
-        if color == last:
-            color = GRAY
-        else:
-            last = color
-        
+        color = wheel(random.randint(0,255))
+
         # Draw shape
         for i in range(size+1):
             if i == 0:
@@ -183,12 +177,14 @@ def tetris(strip,  wait_ms = 10):
         strip.show()
         
         # Move shape down
-        for j in range(strip.numPixels()-(total+size)):
+        for j in range(strip.numPixels()-(total+size)-1):
             for i in reversed(range(1, strip.numPixels()-total)):
                 strip.setPixelColor(i, strip.getPixelColor(i-1))
             strip.show()
 
         # Add size to total
-        total = total + size
+        total += size
 
         #time.sleep(wait_ms/1000.0)
+
+    

@@ -41,10 +41,12 @@ if __name__ == '__main__':
     try:
 
         while True:
+            #a.rainbowCycle(strip0)
+            #a.theaterChaseRainbow(strip0) 
             #a.randomPixel(strip0)
             #a.bounce(strip0, Color(0,200,0),5)
             a.tetris(strip0)
-
+            #a.xmas(strip0)
     except KeyboardInterrupt:
         if args.clear:
             
