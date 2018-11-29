@@ -41,6 +41,7 @@ def colorWipe(strip, color, invert = False, wait_ms = 2):
             time.sleep(wait_ms/1000.0)
 
 def colorSet(strip, color):
+    """Set color across display entirely"""
     for i in range(strip.numPixels()):
         strip.setPixelColor(i, color)
     strip.show()
@@ -111,8 +112,8 @@ def pixel_chase(strip, wait_ms=1, tail=4):
 
 
 def xmas(strip, wait_ms=500):
+    """Flashes every 5th pixel - alternate red and green"""
     flag = True
-
     for i in range(strip.numPixels()):
         if i % 5 == 0:
             flag = not flag
@@ -134,16 +135,19 @@ def xmas(strip, wait_ms=500):
 
 
 def risingColor(strip):
+    """Brightness from 0 to 255 of first 255 pixels - red"""
     for i in range(255):
         strip.setPixelColor(i, Color(i,0,i))
         strip.show()
 
-def randomPixel(strip, wait_ms=5):
-    strip.setPixelColor(random.randint(0, strip.numPixels()), GREEN)
+def randomPixel(strip, color, wait_ms=5):
+    """Lights a random pixel"""
+    strip.setPixelColor(random.randint(0, strip.numPixels()), color)
     strip.show()
     time.sleep(wait_ms/1000.0)
 
 def bounce(strip, color, wait_ms=50):
+    """Bounces one pixel back and forth across strip"""
     for i in range(strip.numPixels()):
         if i == strip.numPixels()-1:
             for j in reversed(range(strip.numPixels())):
@@ -158,8 +162,8 @@ def bounce(strip, color, wait_ms=50):
             time.sleep(wait_ms/1000.0)
 
 def tetris(strip,  wait_ms = 10):
+    """Creates a 'shape' with random color and size and moves it down until strip is filled"""
     total = 0
-    
     while total <= strip.numPixels():
         
         # Generate random size
@@ -183,8 +187,4 @@ def tetris(strip,  wait_ms = 10):
             strip.show()
 
         # Add size to total
-        total += size
-
-        #time.sleep(wait_ms/1000.0)
-
-    
+        total += size   
