@@ -41,6 +41,7 @@ def colorWipe(strip, color, invert = False, wait_ms = 2):
             time.sleep(wait_ms/1000.0)
 
 def colorSet(strip, color):
+    """Set color across display entirely"""
     for i in range(strip.numPixels()):
         strip.setPixelColor(i, color)
     strip.show()
@@ -109,10 +110,9 @@ def pixel_chase(strip, wait_ms=1, tail=4):
         strip.show()
         time.sleep(wait_ms/1000.0)
 
-
-def xmas(strip, wait_ms=100):
+def xmas(strip, wait_ms=500):
+    """Flashes every 5th pixel - alternate red and green"""
     flag = True
-
     for i in range(strip.numPixels()):
         if i % 5 == 0:
             flag = not flag
@@ -134,16 +134,19 @@ def xmas(strip, wait_ms=100):
 
 
 def risingColor(strip):
+    """Brightness from 0 to 255 of first 255 pixels - red"""
     for i in range(255):
         strip.setPixelColor(i, Color(i,0,i))
         strip.show()
 
-def randomPixel(strip, wait_ms=5):
-    strip.setPixelColor(random.randint(0, strip.numPixels()), GREEN)
+def randomPixel(strip, color, wait_ms=5):
+    """Lights a random pixel"""
+    strip.setPixelColor(random.randint(0, strip.numPixels()), color)
     strip.show()
     time.sleep(wait_ms/1000.0)
 
 def bounce(strip, color, wait_ms=0):
+     """Bounces one pixel back and forth across strip"""
     bottom = strip.numPixels()/3
     top = bottom * 2
     for i in range(bottom, top):
@@ -160,8 +163,8 @@ def bounce(strip, color, wait_ms=0):
             #time.sleep(wait_ms/1000.0)
 
 def tetris(strip,  wait_ms = 10):
+    """Creates a 'shape' with random color and size and moves it down until strip is filled"""
     total = 0
-    
     while total <= strip.numPixels():
         
         # Generate random size
@@ -186,10 +189,7 @@ def tetris(strip,  wait_ms = 10):
 
         # Add size to total
         total += size
-
-        #time.sleep(wait_ms/1000.0)
-
-   
+           
 def bounce_bar(strip, color, color2):
     
     val = random.randint(10,45)
@@ -197,8 +197,6 @@ def bounce_bar(strip, color, color2):
     
     bottom = (strip.numPixels()/2) - val
     top = (strip.numPixels()/2) + val
-    
-    #color2 = color
 
     if val > 44:
         color = wheel(random.randint(0,255))
@@ -231,6 +229,3 @@ def bounce_bar(strip, color, color2):
 
     for j in range(strip.numPixels()-val2+1, strip.numPixels()):
         strip.setPixelColor(j, color2)
-
-    
-        
