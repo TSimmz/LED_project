@@ -110,7 +110,7 @@ def pixel_chase(strip, wait_ms=1, tail=4):
         time.sleep(wait_ms/1000.0)
 
 
-def xmas(strip, wait_ms=500):
+def xmas(strip, wait_ms=100):
     flag = True
 
     for i in range(strip.numPixels()):
@@ -143,19 +143,21 @@ def randomPixel(strip, wait_ms=5):
     strip.show()
     time.sleep(wait_ms/1000.0)
 
-def bounce(strip, color, wait_ms=50):
-    for i in range(strip.numPixels()):
-        if i == strip.numPixels()-1:
-            for j in reversed(range(strip.numPixels())):
+def bounce(strip, color, wait_ms=0):
+    bottom = strip.numPixels()/3
+    top = bottom * 2
+    for i in range(bottom, top):
+        if i == top-1:
+            for j in reversed(range(bottom, top)):
                 strip.setPixelColor(j, color)
                 strip.setPixelColor(j+1, 0)
                 strip.show()
-                time.sleep(wait_ms/1000.0)
+                #time.sleep(wait_ms/1000.0)
         else:
             strip.setPixelColor(i, color)
             strip.setPixelColor(i-1, 0)
             strip.show()
-            time.sleep(wait_ms/1000.0)
+            #time.sleep(wait_ms/1000.0)
 
 def tetris(strip,  wait_ms = 10):
     total = 0
@@ -187,4 +189,48 @@ def tetris(strip,  wait_ms = 10):
 
         #time.sleep(wait_ms/1000.0)
 
+   
+def bounce_bar(strip, color, color2):
     
+    val = random.randint(10,45)
+    val2 = random.randint(25, strip.numPixels()/4)
+    
+    bottom = (strip.numPixels()/2) - val
+    top = (strip.numPixels()/2) + val
+    
+    #color2 = color
+
+    if val > 44:
+        color = wheel(random.randint(0,255))
+    
+    if val2> 65:
+        color2 = wheel(random.randint(0,255))
+
+    for j in range(0, val2-1):
+        strip.setPixelColor(j, color2)
+    
+    strip.setPixelColor(val2, RED)
+
+    for j in range(val2+1, bottom-1):
+        strip.setPixelColor(j, BLACK)    
+    
+    strip.setPixelColor(bottom, RED)
+
+    for j in range(bottom+1, strip.numPixels()/2):
+        strip.setPixelColor(j, color)
+    
+    for j in range(strip.numPixels()/2,top-1):
+        strip.setPixelColor(j, color)
+
+    strip.setPixelColor(top, RED)
+
+    for j in range(top+1, strip.numPixels()-val2-1):
+        strip.setPixelColor(j, BLACK)
+    
+    strip.setPixelColor(strip.numPixels()-val2, RED)
+
+    for j in range(strip.numPixels()-val2+1, strip.numPixels()):
+        strip.setPixelColor(j, color2)
+
+    
+        

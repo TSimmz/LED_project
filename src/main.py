@@ -14,7 +14,7 @@ LED_PIN_1      = 13      # GPIO pin connected to the pixels - CHANNEL 1
 
 LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
 LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
-LED_BRIGHTNESS = 150     # Set to 0 for darkest and 255 for brightest
+LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 LED_CHANNEL_0  = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 LED_CHANNEL_1  = 1
@@ -28,27 +28,42 @@ if __name__ == '__main__':
 
     # Create NeoPixel object with appropriate configuration.
     strip0 = Adafruit_NeoPixel(LED_COUNT, 18, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, 0)
-    #strip1 = Adafruit_NeoPixel(LED_COUNT, 13, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, 1)
+    strip1 = Adafruit_NeoPixel(LED_COUNT, 13, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, 1)
     
     # Intialize the library (must be called once before other functions).
     strip0.begin()
-    #strip1.begin()
+    strip1.begin()
 
     print ('Press Ctrl-C to quit.')
     if not args.clear:
         print('Use "-c" argument to clear LEDs on exit')
 
     try:
-
+        #a.colorSet(strip0, a.LIME)
+        #a.colorSet(strip1, a.LIME)
         while True:
+            #a.colorWipe(strip0, a.WHITE)
             #a.rainbowCycle(strip0)
             #a.theaterChaseRainbow(strip0) 
-            #a.randomPixel(strip0)
-            #a.bounce(strip0, Color(0,200,0),5)
-            a.tetris(strip0)
+            #a.theaterChaseRainbow(strip1)
+            # a.randomPixel(strip0)
+            a.bounce(strip0, Color(0,200,0))
+            #a.tetris(strip0)
+            #a.tetris(strip1)
+            #color = strip0.getPixelColor(strip0.numPixels()/2)
+            #color2= strip0.getPixelColor(1)
+            #a.bounce_bar(strip0, color, color2)
+            #a.bounce_bar(strip1, color, color2)
+            
             #a.xmas(strip0)
+            
+            #strip0.show()
+            #strip1.show()
+            
+            #time.sleep(1.0/16.67)
+
     except KeyboardInterrupt:
         if args.clear:
             
-            a.colorSet(strip0, Color(0,0,0))
-            #a.colorWipe(strip1, Color(0,0,0), 10)
+            a.colorSet(strip0, a.BLACK)
+            a.colorSet(strip1, a.BLACK) 
