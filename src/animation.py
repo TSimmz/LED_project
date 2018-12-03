@@ -229,3 +229,25 @@ def bounce_bar(strip, color, color2):
 
     for j in range(strip.numPixels()-val2+1, strip.numPixels()):
         strip.setPixelColor(j, color2)
+
+COOLING = 55
+SPARKING = 120
+def fire(strip, num_led):
+    heat = [i for i in range(num_led)]
+
+    for i in range(num_led):
+        heat[i] = heat[i] - random.randint(0, ((COOLING*10/num_led)+2))
+
+    for i in reversed(range(num_led)):
+        if i < 2:
+            break
+
+        heat[i] = (heat[i-1] + heat[i+2] + heat[i+2]) / 3
+
+    
+    if random.randint(0, 255) < SPARKING:
+        y = random.randint(0,6)
+        heat[y] = heat[y] + random.randint(160, 255)
+
+    for i in range(num_led):
+
