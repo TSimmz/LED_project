@@ -40,6 +40,24 @@ def colorWipe(strip, color, invert = False, wait_ms = 2):
             strip.show()
             time.sleep(wait_ms/1000.0)
 
+def doubleWipe(strip0, strip1, color0, color1):
+    """Wipes two colors across both displays"""
+    j = strip0.numPixels()-1
+    for i in range(strip0.numPixels()):
+        strip0.setPixelColor(i, color0)
+        strip1.setPixelColor(j, color1)
+        strip0.show()
+        strip1.show()
+        j -= 1
+
+    j = strip0.numPixels()-1
+    for i in range(strip0.numPixels()):
+        strip0.setPixelColor(i, color1)
+        strip1.setPixelColor(j, color0)
+        strip0.show()
+        strip1.show()
+        j -= 1
+
 def colorSet(strip, color):
     """Set color across display entirely"""
     for i in range(strip.numPixels()):
@@ -146,7 +164,7 @@ def randomPixel(strip, color, wait_ms=5):
     time.sleep(wait_ms/1000.0)
 
 def bounce(strip, color, wait_ms=0):
-     """Bounces one pixel back and forth across strip"""
+    """Bounces one pixel back and forth across strip"""
     bottom = strip.numPixels()/3
     top = bottom * 2
     for i in range(bottom, top):
@@ -229,3 +247,56 @@ def bounce_bar(strip, color, color2):
 
     for j in range(strip.numPixels()-val2+1, strip.numPixels()):
         strip.setPixelColor(j, color2)
+
+
+def pulse(strip):
+    for j in range(255):
+        for i in range(strip.numPixels()):
+            strip.setPixelColor(i, Color(j, 255, 0) )
+        strip.show()
+        time.sleep(1.0/1000.)
+
+def police(strip0, strip1):
+    half = strip0.numPixels()/2
+    full = strip0.numPixels()
+    for i in range(half):
+        strip0.setPixelColor(i, BLUE)
+        strip1.setPixelColor(i, RED)
+
+    for i in range(half, full):
+        strip0.setPixelColor(i, BLACK)
+        strip1.setPixelColor(i, BLACK)
+
+    strip0.show()
+    strip1.show()
+    time.sleep(100/1000.0)
+
+    for i in range(half, full):
+        strip0.setPixelColor(i, RED)
+        strip1.setPixelColor(i, BLUE)
+
+    for i in range(half):
+        strip0.setPixelColor(i, BLACK)
+        strip1.setPixelColor(i, BLACK)
+
+    strip0.show()
+    strip1.show()
+    time.sleep(50/1000.0)
+
+def police2(strip0, strip1):
+    
+    for i in range(strip0.numPixels()):
+        strip0.setPixelColor(i, BLUE)
+        strip1.setPixelColor(i, BLACK)
+
+    strip0.show()
+    strip1.show()
+    time.sleep(0.75/10.0)
+
+    for i in range(strip0.numPixels()):
+        strip0.setPixelColor(i, BLACK)
+        strip1.setPixelColor(i, RED)
+
+    strip0.show()
+    strip1.show()
+    time.sleep(0.75/10.0)
