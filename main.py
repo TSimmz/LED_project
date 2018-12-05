@@ -3,10 +3,12 @@
 import time
 import argparse
 import animation as a
+import RPi.GPIO as GPIO
 
 from neopixel import *
 from threading import Thread
 from gpiozero import MCP3008
+
 
 # LED strip configuration:
 LED_COUNT      = 270    # Number of LED pixels.
@@ -20,6 +22,62 @@ LED_INVERT     = False   # True to invert the signal (when using NPN transistor 
 LED_CHANNEL_0  = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 LED_CHANNEL_1  = 1
 
+# Spectrum board configuration:
+STROBE = 4
+RESET  = 5
+
+# Spectrum frequency lists
+FREQ = [i for i in range(7)]
+
+# Initialize analog channels for Spectrum shield
+data_0 = MCP3008(0)
+data_1 = MCP3008(1) 
+   
+alive = True
+
+# Setup GPIO pins
+def setup_spectrum():
+    # Set spectrum shield pin configs
+    GPIO.setup(STROBE, GPIO.OUT)
+    GPIO.setup(RESET, GPIO.OUT)
+    
+    GPIO.output(STROBE, GPIO.HIGH)
+    GPIO.output(RESET, GPIO.HIGH)
+
+    # Initialize spectrum analyzers
+    GPIO.output(STROBE, GPIO.LOW)
+    time.sleep(0.001)
+    GPIO.output(RESET, GPIO.HIGH)
+    time.sleep(0.001)
+    GPIO.output(STROBE, GPIO.HIGH)
+    time.sleep(0.001)
+    GPIO.output(STROBE, GPIO.LOW)
+    time.sleep(0.001)
+    GPIO.output(RESET, GPIO.LOW)
+
+
+def read_freq(threadname):
+    global FREQ
+    global data_0
+    global data_1
+    global alive
+
+    try:
+        while alive:
+            for amp in range(7):
+                if data_0.value > data_1.value:
+                    FREQ[amp] = data_0.value
+                else:
+                    FREQ[amp] = data_1.value
+
+                GPIO.output(STROBE, GPIO.HIGH)
+                GPIO.output(STROBE, GPIO.LOW)
+            else:
+                pass
+                #print FREQ
+    except KeyboardInterrupt:
+        alive = False  
+
 # Main program logic follows:
 if __name__ == '__main__':
     # Process arguments
@@ -28,8 +86,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # Initialize analog channels for Spectrum shield
-    freq0 = MCP3008(0)
-    freq1 = MCP3008(1) 
+    #data_0 = MCP3008(0)
+    #data_1 = MCP3008(1) 
 
     # Create NeoPixel object with appropriate configuration.
     strip0 = Adafruit_NeoPixel(LED_COUNT, 18, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, 0)
@@ -39,6 +97,12 @@ if __name__ == '__main__':
     strip0.begin()
     strip1.begin()
 
+    # Setup spectrum board control pins
+    setup_spectrum()
+
+    # Start analog read thread
+    analog_thread = Thread(target=read_freq, args=("analog thread",))
+    analog_thread.start()
 
     print ('Press Ctrl-C to quit.')
     if not args.clear:
@@ -47,7 +111,7 @@ if __name__ == '__main__':
     try:
         #a.colorSet(strip0, a.LIME)
         #a.colorSet(strip1, a.LIME)
-        while True:
+        while alive:
             #a.colorWipe(strip0, a.WHITE)
             #a.rainbowCycle(strip0)
             #a.theaterChaseRainbow(strip0) 
@@ -68,7 +132,7 @@ if __name__ == '__main__':
             #a.colorWipe(strip1, a.RED, True)
 
             #a.doubleWipe(strip0, strip1, a.BLUE, a.RED)
-            a.police2(strip0, strip1)
+            #a.police2(strip0, strip1)
             #a.xmas(strip0)
             #a.xmas(strip1)
             
@@ -79,8 +143,11 @@ if __name__ == '__main__':
 
             #a.colorWipe(strip0, a.WHITE)
         
+            print FREQ
+            #pass
+
     except KeyboardInterrupt:
+        alive = False
         if args.clear:
-            
             a.colorSet(strip0, a.BLACK)
             a.colorSet(strip1, a.BLACK) 
