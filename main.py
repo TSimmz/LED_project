@@ -6,6 +6,7 @@ import animation as a
 
 from neopixel import *
 from threading import Thread
+from gpiozero import MCP3008
 
 # LED strip configuration:
 LED_COUNT      = 270    # Number of LED pixels.
@@ -26,6 +27,10 @@ if __name__ == '__main__':
     parser.add_argument('-c', '--clear', action='store_true', help='clear the display on exit')
     args = parser.parse_args()
 
+    # Initialize analog channels for Spectrum shield
+    freq0 = MCP3008(0)
+    freq1 = MCP3008(1) 
+
     # Create NeoPixel object with appropriate configuration.
     strip0 = Adafruit_NeoPixel(LED_COUNT, 18, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, 0)
     strip1 = Adafruit_NeoPixel(LED_COUNT, 13, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, 1)
@@ -33,6 +38,7 @@ if __name__ == '__main__':
     # Intialize the library (must be called once before other functions).
     strip0.begin()
     strip1.begin()
+
 
     print ('Press Ctrl-C to quit.')
     if not args.clear:
