@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
 import time
+import random
 import argparse
 import animation as a
 import RPi.GPIO as GPIO
+import numpy as np
+import matplotlib.pyplot as plt
 
 from neopixel import *
 from threading import Thread
@@ -17,7 +20,7 @@ LED_PIN_1      = 13      # GPIO pin connected to the pixels - CHANNEL 1
 
 LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
 LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
-LED_BRIGHTNESS = 100     # Set to 0 for darkest and 255 for brightest
+LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 LED_CHANNEL_0  = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 LED_CHANNEL_1  = 1
@@ -98,11 +101,11 @@ if __name__ == '__main__':
     strip1.begin()
 
     # Setup spectrum board control pins
-    setup_spectrum()
+    #setup_spectrum()
 
     # Start analog read thread
-    analog_thread = Thread(target=read_freq, args=("analog thread",))
-    analog_thread.start()
+    #analog_thread = Thread(target=read_freq, args=("analog thread",))
+    #analog_thread.start()
 
     print ('Press Ctrl-C to quit.')
     if not args.clear:
@@ -113,8 +116,8 @@ if __name__ == '__main__':
         #a.colorSet(strip1, a.LIME)
         while alive:
             #a.colorWipe(strip0, a.WHITE)
-            #a.rainbowCycle(strip0)
-            #a.theaterChaseRainbow(strip0) 
+            #a.rainbowCycle(strip0, strip1)
+            a.theaterChaseRainbow(strip0, strip1) 
             #a.theaterChaseRainbow(strip1)
             #a.randomPixel(strip0, a.CYAN)
             #a.bounce(strip0, Color(0,200,0))
@@ -132,7 +135,7 @@ if __name__ == '__main__':
             #a.colorWipe(strip1, a.RED, True)
 
             #a.doubleWipe(strip0, strip1, a.BLUE, a.RED)
-            #a.police2(strip0, strip1)
+            #a.police(strip0, strip1)
             #a.xmas(strip0)
             #a.xmas(strip1)
             
@@ -143,8 +146,23 @@ if __name__ == '__main__':
 
             #a.colorWipe(strip0, a.WHITE)
         
-            print FREQ
-            #pass
+            #print FREQ
+            
+            #for i in range(175):
+            #    c0 = a.wheel(random.randint(0, 100))
+            #    c1 = a.wheel(random.randint(101, 180))
+            #    c2 = a.wheel(random.randint(181, 255))
+
+            #    a.rotate_3(strip0,strip1,c0,c1,c2, True)
+          
+
+            #x = FREQ[0]
+            #y = np.arange(0,1)
+           
+            
+            #plt.plot(x, y)
+            #plt.show()
+            pass
 
     except KeyboardInterrupt:
         alive = False

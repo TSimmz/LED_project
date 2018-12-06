@@ -94,24 +94,31 @@ def rainbow(strip, wait_ms=20, iterations=1):
         strip.show()
         time.sleep(wait_ms/1000.0)
 
-def rainbowCycle(strip, wait_ms=50, iterations=50):
+def rainbowCycle(strip0, strip1, wait_ms=5, iterations=50):
     """Draw rainbow that uniformly distributes itself across all pixels."""
     for j in range(256*iterations):
-        for i in range(strip.numPixels()):
-            strip.setPixelColor(i, wheel((int(i * 256 / strip.numPixels()) + j) & 255))
-        strip.show()
+        k = 255
+        for i in range(strip0.numPixels()):
+            strip0.setPixelColor(i, wheel((int(i * 256 / strip0.numPixels()) + j) & 255))
+            strip1.setPixelColor(k, wheel((int(i * 256 / strip1.numPixels()) + j) & 255))
+            k -= 1    
+        strip0.show()
+        strip1.show()
         time.sleep(wait_ms/1000.0)
 
-def theaterChaseRainbow(strip, wait_ms=50):
+def theaterChaseRainbow(strip0, strip1, wait_ms=50):
     """Rainbow movie theater light style chaser animation."""
     for j in range(256):
         for q in range(3):
-            for i in range(0, strip.numPixels(), 3):
-                strip.setPixelColor(i+q, wheel((i+j) % 255))
-            strip.show()
+            for i in range(0, strip0.numPixels(), 3):
+                strip0.setPixelColor(i+q, wheel((i+j) % 255))
+                strip1.setPixelColor(i+q, wheel((i+j) % 255))
+            strip0.show()
+            strip1.show()
             time.sleep(wait_ms/1000.0)
-            for i in range(0, strip.numPixels(), 3):
-                strip.setPixelColor(i+q, 0)
+            for i in range(0, strip0.numPixels(), 3):
+                strip0.setPixelColor(i+q, 0)
+                strip1.setPixelColor(i+q, 0)
 
 def pixel_chase(strip, wait_ms=1, tail=4):
     """Pixel races across with trail size"""
@@ -321,3 +328,43 @@ def fire(strip, num_led):
 
     for i in range(num_led):
       pass
+
+def rotate_3(strip0, strip1, c0, c1, c2, invert=False):
+    one = strip0.numPixels()/3
+    two = one * 2
+    thr = strip0.numPixels()
+ 
+    for i in range(0, one):
+        strip0.setPixelColor(i, c0)
+    for i in range(one, two):
+        strip0.setPixelColor(i, c1)
+    for i in range(two, thr):
+        strip0.setPixelColor(i, c2)
+
+    for i in range(0, one):
+        strip1.setPixelColor(i, c0)
+    for i in range(one, two):
+        strip1.setPixelColor(i, c1)
+    for i in range(two, thr):
+        strip1.setPixelColor(i, c2)
+
+    strip0.show()
+    strip1.show()
+
+    #time.sleep(1)
+    
+    for j in range(one):
+        for p in range(thr):
+            data0 = strip0.getPixels()
+            data1 = strip1.getPixels()
+
+            strip0.setPixelColor(p, data0[(p+1)%thr])
+            strip1.setPixelColor(p, data1[(p+1)%thr])
+        
+        strip0.show()
+        strip1.show()
+        time.sleep(10/1000)
+
+
+
+
