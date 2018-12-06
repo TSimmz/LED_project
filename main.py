@@ -26,8 +26,8 @@ LED_CHANNEL_0  = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 LED_CHANNEL_1  = 1
 
 # Spectrum board configuration:
-STROBE = 4
-RESET  = 5
+STROBE = 3      # Pin 4 on Spectrum
+RESET  = 4      # Pin 5 on Spectrum
 
 # Spectrum frequency lists
 FREQ = [i for i in range(7)]
