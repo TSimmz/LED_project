@@ -117,7 +117,7 @@ if __name__ == '__main__':
         while alive:
             #a.colorWipe(strip0, a.WHITE)
             #a.rainbowCycle(strip0, strip1)
-            a.theaterChaseRainbow(strip0, strip1) 
+            #a.theaterChaseRainbow(strip0, strip1) 
             #a.theaterChaseRainbow(strip1)
             #a.randomPixel(strip0, a.CYAN)
             #a.bounce(strip0, Color(0,200,0))
@@ -142,18 +142,18 @@ if __name__ == '__main__':
             #strip0.show()
             #strip1.show()
             
-            #time.sleep(1.0/16.67)
+            #time.sleep(125/1000.0)
 
             #a.colorWipe(strip0, a.WHITE)
         
             #print FREQ
             
-            #for i in range(175):
-            #    c0 = a.wheel(random.randint(0, 100))
-            #    c1 = a.wheel(random.randint(101, 180))
-            #    c2 = a.wheel(random.randint(181, 255))
+            for i in range(175):
+                c0 = a.wheel(random.randint(0, 100))
+                c1 = a.wheel(random.randint(101, 180))
+                c2 = a.wheel(random.randint(181, 255))
 
-            #    a.rotate_3(strip0,strip1,c0,c1,c2, True)
+                a.rotate_3(strip0,strip1,c0,c1,c2, True)
           
 
             #x = FREQ[0]

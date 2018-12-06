@@ -106,7 +106,7 @@ def rainbowCycle(strip0, strip1, wait_ms=5, iterations=50):
         strip1.show()
         time.sleep(wait_ms/1000.0)
 
-def theaterChaseRainbow(strip0, strip1, wait_ms=50):
+def theaterChaseRainbow(strip0, strip1, wait_ms=16.67):
     """Rainbow movie theater light style chaser animation."""
     for j in range(256):
         for q in range(3):
