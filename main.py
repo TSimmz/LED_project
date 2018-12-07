@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import sys
 import time
 import random
 import argparse
@@ -58,6 +59,8 @@ def setup_spectrum():
     time.sleep(0.001)
     GPIO.output(RESET, GPIO.LOW)
 
+def map(x, in_min, in_max, out_min, out_max):
+        return (x - in_min) * (out_max - out_min)/(in_max - in_min) + out_min
 
 def read_freq(threadname):
     global FREQ
@@ -73,6 +76,9 @@ def read_freq(threadname):
                 else:
                     FREQ[amp] = data_1.value
 
+                #FREQ[amp] = map(FREQ[amp], 0, 1, 0, 255) 
+                FREQ[amp] *= 1000
+                
                 GPIO.output(STROBE, GPIO.HIGH)
                 GPIO.output(STROBE, GPIO.LOW)
             else:
@@ -135,34 +141,33 @@ if __name__ == '__main__':
             #a.colorWipe(strip1, a.RED, True)
 
             #a.doubleWipe(strip0, strip1, a.BLUE, a.RED)
-            #a.police(strip0, strip1)
+            #a.police2(strip0, strip1)
             #a.xmas(strip0)
             #a.xmas(strip1)
             
             #strip0.show()
             #strip1.show()
-            
-            #time.sleep(125/1000.0)
+            #time.sleep(16.67/1000.0)
 
             #a.colorWipe(strip0, a.WHITE)
-        
-            #print FREQ
             
-            for i in range(175):
-                c0 = a.wheel(random.randint(0, 100))
-                c1 = a.wheel(random.randint(101, 180))
-                c2 = a.wheel(random.randint(181, 255))
+            #print("[63Hz: {:>6.3f},\t160Hz: {:>6.3f},\t400Hz: {:>6.3f},\t1000Hz: {:>6.3f},\t2500Hz: {:>6.3f},\t6250Hz: {:>6.3f},\t16000Hz: {:>6.3f}]\r".format(FREQ[0], FREQ[1], FREQ[2], FREQ[3], FREQ[4], FREQ[5], FREQ[6])) 
+            
+            #for i in range(175):
+            #    c0 = a.wheel(random.randint(0, 100))
+            #    c1 = a.wheel(random.randint(101, 180))
+            #    c2 = a.wheel(random.randint(181, 255))
 
-                a.rotate_3(strip0,strip1,c0,c1,c2, True)
+            #    a.rotate_3(strip0,strip1,c0,c1,c2, True)
           
-
+            a.circular(strip0,strip1)
             #x = FREQ[0]
             #y = np.arange(0,1)
            
             
             #plt.plot(x, y)
             #plt.show()
-            pass
+            #pass
 
     except KeyboardInterrupt:
         alive = False
