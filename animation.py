@@ -375,16 +375,16 @@ def circular(strip0, strip1):
     for i in range(0, one):
         strip0.setPixelColor(i, RED)
     for i in range(one, two):
-        strip0.setPixelColor(i, BLUE)
+        strip0.setPixelColor(i, ORANGE)
     for i in range(two, thr):
-        strip0.setPixelColor(i, RED)
+        strip0.setPixelColor(i, YELLOW)
 
     for i in range(0, one):
-        strip1.setPixelColor(i, BLUE)
+        strip1.setPixelColor(i, PURPLE)
     for i in range(one, two):
-        strip1.setPixelColor(i, RED)
-    for i in range(two, thr):
         strip1.setPixelColor(i, BLUE)
+    for i in range(two, thr):
+        strip1.setPixelColor(i, GREEN)
 
     strip0.show()
     strip1.show()
@@ -397,35 +397,35 @@ def circular(strip0, strip1):
         d0 = strip0.getPixels()
         d1 = strip1.getPixels()
 
-        if i % one:
-            rotate = not rotate
+        #if i % one:
+        #    rotate = not rotate
 
         for k in range(thr):
             #d0=strip0.getPixels()
             #d1=strip1.getPixels()
-            if rotate: 
-                if k == 0:
-                    strip0.setPixelColor(k, d0[k+1])
-                    strip1.setPixelColor(k, d0[k])
+            #if rotate: 
+            if k == 0:
+                strip0.setPixelColor(k, d0[k+1])
+                strip1.setPixelColor(k, d0[k])
 
-                elif k == (thr-1):
-                    strip0.setPixelColor(k, d1[k])
-                    strip1.setPixelColor(k, d1[k-1])
-            
-                else:
-                    strip0.setPixelColor(k, d0[k+1])
-                    strip1.setPixelColor(j, d1[j-1])                
+            elif k == (thr-1):
+                strip0.setPixelColor(k, d1[k])
+                strip1.setPixelColor(k, d1[k-1])
             
             else:
-                if k == 0:
-                    strip0.setPixelColor(k, d1[k])
-                    strip1.setPixelColor(k, d1[k+1])
-                elif k == (thr-1):
-                    strip0.setPixelColor(k, d0[k-1])
-                    strip1.setPixelColor(k, d0[k])
-                else:
-                    strip0.setPixelColor(j, d0[j-1])
-                    strip1.setPixelColor(k, d1[k+1])
+                strip0.setPixelColor(k, d0[k+1])
+                strip1.setPixelColor(j, d1[j-1])                
+            
+            #else:
+            #    if k == 0:
+            #        strip0.setPixelColor(k, d1[k])
+            #        strip1.setPixelColor(k, d1[k+1])
+            #    elif k == (thr-1):
+            #        strip0.setPixelColor(k, d0[k-1])
+            #        strip1.setPixelColor(k, d0[k])
+            #    else:
+            #        strip0.setPixelColor(j, d0[j-1])
+            #        strip1.setPixelColor(k, d1[k+1])
             j -= 1
 
         strip0.show()
