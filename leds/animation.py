@@ -2,30 +2,10 @@
 
 import time
 import random
-from neopixel import *
+from color import Color
+from neopixel import * 
 
-#############################
-# Colors  - G - R - B
-#############################
-BLACK   = Color(0,0,0)
-WHITE   = Color(255,255,255)
-RED     = Color(0,255,0)
-LIME    = Color(255,0,0)
-BLUE    = Color(0,0,255)
-YELLOW  = Color(255,255,0)
-CYAN    = Color(255,0,255)
-MAGENTA = Color(0,255,255)
-SILVER  = Color(192,192,192)
-GRAY    = Color(128,128,128)
-MAROON  = Color(0,128,0)
-OLIVE   = Color(128,128,0)
-GREEN   = Color(128,0,0)
-PURPLE  = Color(0,128,128)
-TEAL    = Color(128,0,128)
-NAVY    = Color(0,0,128)
-#############################
-
-COLORS = [RED, LIME, BLUE, YELLOW, CYAN, MAGENTA]
+COLORS = [Color.RED, Color.LIME, Color.BLUE, Color.YELLOW, Color.CYAN, Color.MAGENTA]
 
 def colorWipe(strip, color, invert = False, wait_ms = 2):
     """Wipe color across display a pixel at a time."""
