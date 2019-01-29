@@ -122,7 +122,7 @@ if __name__ == '__main__':
         #a.colorSet(strip1, a.LIME)
         while alive:
             #a.colorWipe(strip0, a.WHITE)
-            a.rainbowCycle(strip0, strip1)
+            #a.rainbowCycle(strip0, strip1)
             #a.theaterChaseRainbow(strip0, strip1, 125) 
             #a.theaterChaseRainbow(strip1)
             #a.randomPixel(strip0, a.CYAN)
@@ -140,7 +140,7 @@ if __name__ == '__main__':
             #a.colorWipe(strip0, a.LIME)
             #a.colorWipe(strip1, a.RED, True)
 
-            #a.doubleWipe(strip0, strip1, a.MAGENTA, a.LIME)
+            a.doubleWipe(strip0, strip1, a.BLUE, a.YELLOW)
             #a.police2(strip0, strip1)
             #a.xmas(strip0)
             #a.xmas(strip1)
