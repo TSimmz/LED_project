@@ -1,0 +1,26 @@
+$def with (content)
+<html>
+	<head>
+	$if 'title' in content and content.title:
+		<title>$content.title - LED controller</title>
+	$else:
+		<title>LED Controller - Control PI LED strips </title>
+	
+		<link rel="stylesheet" href="/static/css/styles.css">
+	</head>
+	<body>
+		<div class="container">
+			<div class="header span-24">
+		
+			</div>
+		
+			<div class="content span-24">
+			$:content
+			</div>
+
+			<div class="footer span-24">
+
+			</div>
+		</div>
+	</body>
+</html>
