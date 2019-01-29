@@ -1,6 +1,8 @@
 import web, cgi, settings
 import simplejson
 
+import controller
+
 urls = (
     '/', 'index'
 )
