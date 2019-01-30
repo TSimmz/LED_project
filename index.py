@@ -1,7 +1,7 @@
 import web, cgi, settings
 import simplejson
 
-import controller
+import leds
 
 urls = (
     '/', 'index'
