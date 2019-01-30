@@ -1,6 +1,6 @@
 from neopixel import *
 
-class Color:
+class Colors:
     """
         Colors defined in GRB for use with the WS2812B LED strips
     """

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 import time
-import argparse
-import animation as a
+#import argparse
+#import animation as a
 
-from color import Color
+#from color import Color
 from neopixel import *
 
 class Controller:

@@ -2,10 +2,10 @@
 
 import time
 import random
-from color import Color
+from colors import Colors
 from neopixel import * 
 
-COLORS = [Color.RED, Color.LIME, Color.BLUE, Color.YELLOW, Color.CYAN, Color.MAGENTA]
+COLORS = [Colors.RED, Colors.LIME, Colors.BLUE, Colors.YELLOW, Colors.CYAN, Colors.MAGENTA]
 
 def colorWipe(strip, color, invert = False, wait_ms = 2):
     """Wipe color across display a pixel at a time."""
