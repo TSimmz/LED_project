@@ -1,4 +1,5 @@
-# LED_project
+# Living room LED 
+I installed long neopixel LED strips in my living room for social gatherings, but I wanted more customized animations and lighting effects. Ultimately, I would like this to be music reactive.
 
 ## Dependencies
 ### Software
